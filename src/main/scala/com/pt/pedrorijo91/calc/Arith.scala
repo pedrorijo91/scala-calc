@@ -1,7 +1,7 @@
 package com.pt.pedrorijo91.calc
 
-import scala.util.parsing.combinator.RegexParsers
 import scala.math.pow
+import scala.util.parsing.combinator.RegexParsers
 /**
  * Created by pedrorijo on 26/12/14.
  */
@@ -18,11 +18,10 @@ class Arith extends RegexParsers {
     }
   }
 
-  def expr  : Parser[Double] =   term ~ rep("+" ~ term | "-" ~ term) ^^ {
+  def expr  : Parser[Double] =  term~"**"~term ^^ { case x ~ "**" ~ y => pow(x,y)} | term ~ rep("+" ~ term | "-" ~ term) ^^ {
     case number ~ list => list.foldLeft(number) {
       case (x, "+" ~ y) => x + y
       case (x, "-" ~ y) => x - y
     }
   }
-
 }

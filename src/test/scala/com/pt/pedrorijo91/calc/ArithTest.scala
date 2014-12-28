@@ -31,7 +31,8 @@ class ArithTest extends FunSuite {
     assertResult(3.0)(Calc.parseAll(Calc.expr, "2 + 1").get)
   }
 
-  test("Parsing a subtraction of two numbers should evaluate to the difference between the numbers") {
+  test("Parsing a subtraction of two numbers should evaluate to " +
+    "the difference between the numbers") {
     assertResult(3.0)(Calc.parseAll(Calc.expr, "4 - 1").get)
   }
 
@@ -39,11 +40,13 @@ class ArithTest extends FunSuite {
     assertResult(6.0)(Calc.parseAll(Calc.expr, "2 * 3").get)
   }
 
-  test("Parsing a division of two numbers should evaluate to the full division between the numbers") {
+  test("Parsing a division of two numbers should evaluate to " +
+    "the full division between the numbers") {
     assertResult(2.5)(Calc.parseAll(Calc.expr, "5 / 2").get)
   }
 
-  test("Parsing should take into account operator precedence: product/division over sum/subtraction") {
+  test("Parsing should take into account operator precedence: " +
+    "product/division over sum/subtraction") {
     assertResult(14.0)(Calc.parseAll(Calc.expr, " 2 + 3 * 4").get)
   }
 
@@ -55,11 +58,15 @@ class ArithTest extends FunSuite {
     assertResult(50.0)(Calc.parseAll(Calc.expr, " (2 + 3) * 4 * 5 / (1.5 + 0.5)").get)
   }
 
-  ignore("Parsing a power operation (a ** b) should evaluate to a powered to b") {
+  test("Parsing a power operation (a ** b) should evaluate to a powered to b") {
     assertResult(8.0)(Calc.parseAll(Calc.expr, "2**3").get)
   }
 
-  ignore("Parsing should give higher precedence to power operation") {
+  test("Simple expression using power operation as a term") {
+    assertResult(29.0)(Calc.parseAll(Calc.expr, "2 + (3 ** 3)").get)
+  }
+
+  test("Parsing should give higher precedence to power operation") {
     assertResult(29.0)(Calc.parseAll(Calc.expr, "2 + 3 ** 3").get)
   }
 }
