@@ -18,10 +18,15 @@ class Arith extends RegexParsers {
     }
   }
 
-  def expr  : Parser[Double] =  term~"**"~term ^^ { case x ~ "**" ~ y => pow(x,y)} | term ~ rep("+" ~ term | "-" ~ term) ^^ {
-    case number ~ list => list.foldLeft(number) {
-      case (x, "+" ~ y) => x + y
-      case (x, "-" ~ y) => x - y
+  def expr  : Parser[Double] = {
+    term ~ "**" ~ term ^^ {
+      case x ~ "**" ~ y => pow(x, y)
+    } |
+     term ~ rep("+" ~ term | "-" ~ term) ^^ {
+      case number ~ list => list.foldLeft(number) {
+        case (x, "+" ~ y) => x + y
+        case (x, "-" ~ y) => x - y
+      }
     }
   }
 }
