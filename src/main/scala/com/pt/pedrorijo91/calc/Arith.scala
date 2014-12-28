@@ -1,12 +1,13 @@
 package com.pt.pedrorijo91.calc
 
-import scala.util.parsing.combinator._
+import scala.util.parsing.combinator.RegexParsers
+import scala.math.pow
 /**
  * Created by pedrorijo on 26/12/14.
  */
 class Arith extends RegexParsers {
 
-  def number: Parser[Double] = """\d+(\.\d*)?""".r ^^ { _.toDouble }
+  def number: Parser[Double] = """-?\d+(\.\d*)?""".r ^^ { _.toDouble }
 
   def factor: Parser[Double] = number | "(" ~> expr <~ ")"
 
@@ -17,7 +18,7 @@ class Arith extends RegexParsers {
     }
   }
 
-  def expr  : Parser[Double] = term ~ rep("+" ~ term | "-" ~ term) ^^ {
+  def expr  : Parser[Double] =   term ~ rep("+" ~ term | "-" ~ term) ^^ {
     case number ~ list => list.foldLeft(number) {
       case (x, "+" ~ y) => x + y
       case (x, "-" ~ y) => x - y

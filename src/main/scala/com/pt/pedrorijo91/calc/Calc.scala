@@ -7,7 +7,7 @@ import scala.io.StdIn
  */
 object Calc extends Arith {
 
-  def main(args: Array[String])  = askInput
+  def main(args: Array[String]) : Unit = askInput
 
   private[this] def askInput : Unit = {
     println("Insert expression: (insert 'Q' for quit the program)")
